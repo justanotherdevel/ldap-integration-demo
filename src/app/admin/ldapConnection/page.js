@@ -1,21 +1,9 @@
 "use client";
 import axios from "axios";
 import React from "react";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { LdatTable } from "./ldapTable";
+import LDAPForm from "./ldapForm";
 
 const AdminPage = () => {
-  const [ldap, setLdap] = useState([]);
-  const router = useRouter();
-  useEffect(() => {
-    (async () => {
-      const res = await axios.get("/api/ldap/getConnections");
-      const { data } = res;
-      setLdap(data);
-    })(),
-      [];
-  });
   return (
     <>
       <div className="bg-blue-500 text-white py-4 px-6 flex justify-between items-center">
@@ -30,7 +18,7 @@ const AdminPage = () => {
           Logout
         </button>
       </div>
-      <LdatTable ldap={ldap} />
+      <LDAPForm />
     </>
   );
 };

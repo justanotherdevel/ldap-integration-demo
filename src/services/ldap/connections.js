@@ -2,9 +2,18 @@ import connectDB from "@/app/middleware/mongodb";
 import LdapConn from "@/app/model/ldapConn";
 
 const getAllLdapConnsHandler = async () => {
-  console.log("getAllLdapConns");
   const ldapConns = await LdapConn.find({});
   return ldapConns;
+};
+
+const newLdapDataEntryHandler = async (ldapData) => {
+  const ldapConn = new LdapConn(ldapData);
+  await ldapConn.save();
+  return ldapConn;
+};
+
+const deleteLdapDataEntryHandler = async (org) => {
+  return await LdapConn.findOneAndDelete({ org: org });
 };
 
 const fillDummyDataHandler = async () => {
@@ -16,6 +25,8 @@ const fillDummyDataHandler = async () => {
     user_password: "user_password",
     cbic_orgn: "cbic_orgn",
     para_with_uid: "para_with_uid",
+    email: "test@email.com",
+    phone: "9988775544",
   });
   const test = await ldapConn.save();
   console.log("fillDummyData", test);
@@ -24,3 +35,5 @@ const fillDummyDataHandler = async () => {
 
 export const fillDummyData = connectDB(fillDummyDataHandler);
 export const getAllLdapConns = connectDB(getAllLdapConnsHandler);
+export const newLdapDataEntry = connectDB(newLdapDataEntryHandler);
+export const deleteLdapDataEntry = connectDB(deleteLdapDataEntryHandler);
