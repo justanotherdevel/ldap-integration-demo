@@ -24,7 +24,7 @@ export async function PUT(req, { params }) {
   const { id } = params;
   try {
     const { data } = body;
-    console.log(id);
+    console.log(data);
     const res = await editLdapConn(id, data);
     return new Response(JSON.stringify(res));
   } catch (error) {

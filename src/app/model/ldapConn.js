@@ -10,6 +10,7 @@ const ldapSchema = new mongoose.Schema({
   para_with_uid: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String },
+  phoneOtp: { type: Boolean },
 });
 
 const LdapConn =

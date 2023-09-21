@@ -1,9 +1,12 @@
-import { findLdapConn, editLdapConn } from "@/services/ldap/connections";
+import {
+  editLdapConn,
+  findLdapConnNonAdmin,
+} from "@/services/ldap/connections";
 
 export async function GET(_req, { params }) {
   const { id } = params;
   try {
-    const res = await findLdapConn(id);
+    const res = await findLdapConnNonAdmin(id);
     if (!res) {
       return new Response(JSON.stringify({ message: "No such entry" }), {
         status: 404,

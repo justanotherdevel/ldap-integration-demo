@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import ChangePasswordForm from "../components/change_password";
+import ForgotPasswordForm from "@/app/components/forgot_password_form";
 
 export default function Home() {
   const { org } = useParams();
@@ -42,7 +42,7 @@ export default function Home() {
     return (
       <main>
         {/* TEST */}
-        <ChangePasswordForm org={org} />
+        <ForgotPasswordForm org={org} />
       </main>
     );
   } else return <main>Invalid page or loading</main>;

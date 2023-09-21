@@ -11,6 +11,13 @@ const findLdapConnHandler = async (org) => {
   return ldapConn;
 };
 
+const findLdapConnNonAdminHandler = async (org) => {
+  const ldapConn = await LdapConn.findOne({ org: org }).select(
+    "-user_password"
+  );
+  return ldapConn;
+};
+
 const editLdapConnHandler = async (org, ldapData) => {
   const ldapConn = await LdapConn.findOneAndUpdate({ org: org }, ldapData, {
     new: true,
@@ -52,3 +59,4 @@ export const newLdapDataEntry = connectDB(newLdapDataEntryHandler);
 export const deleteLdapDataEntry = connectDB(deleteLdapDataEntryHandler);
 export const findLdapConn = connectDB(findLdapConnHandler);
 export const editLdapConn = connectDB(editLdapConnHandler);
+export const findLdapConnNonAdmin = connectDB(findLdapConnNonAdminHandler);

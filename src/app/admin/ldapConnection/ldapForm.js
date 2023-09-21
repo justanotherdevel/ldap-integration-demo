@@ -19,14 +19,18 @@ const LDAPForm = ({ initialValues, edit }) => {
   }, [edit]);
 
   console.log("formData", formData);
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+    console.log(formData);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     try {
       if (isEdit) {
         await axios.put(`/api/ldap/getConnections/${formData.org}`, {
@@ -159,6 +163,18 @@ const LDAPForm = ({ initialValues, edit }) => {
             type="text"
             name="phone"
             value={formData.phone || ""}
+            onChange={handleChange}
+            className="border rounded w-full py-2 px-3"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-600 font-semibold mb-2">
+            Phone OTP
+          </label>
+          <input
+            type="checkbox"
+            name="phoneOtp"
+            value={formData.phoneOtp || false}
             onChange={handleChange}
             className="border rounded w-full py-2 px-3"
           />

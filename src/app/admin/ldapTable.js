@@ -1,5 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faEdit,
+  faSquare,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -48,6 +53,7 @@ export const LdatTable = ({ ldap }) => {
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
               Password
             </th>
+            <th className="px-6 py-3 border-b-2 border-gray-300">Mobile OTP</th>
             <th className="px-6 py-3 border-b-2 border-gray-300">Edit</th>
             <th className="px-6 py-3 border-b-2 border-gray-300">Delete</th>
           </tr>
@@ -84,6 +90,9 @@ export const LdatTable = ({ ldap }) => {
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                 {entry.user_password}
+              </td>
+              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300 mx-auto text-blue-600">
+                <FontAwesomeIcon icon={entry.phoneOtp ? faCheck : faSquare} />
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                 <button
