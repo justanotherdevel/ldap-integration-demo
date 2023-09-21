@@ -6,6 +6,19 @@ const getAllLdapConnsHandler = async () => {
   return ldapConns;
 };
 
+const findLdapConnHandler = async (org) => {
+  const ldapConn = await LdapConn.findOne({ org: org });
+  return ldapConn;
+};
+
+const editLdapConnHandler = async (org, ldapData) => {
+  const ldapConn = await LdapConn.findOneAndUpdate({ org: org }, ldapData, {
+    new: true,
+    runValidators: true,
+  });
+  return ldapConn;
+};
+
 const newLdapDataEntryHandler = async (ldapData) => {
   const ldapConn = new LdapConn(ldapData);
   await ldapConn.save();
@@ -37,3 +50,5 @@ export const fillDummyData = connectDB(fillDummyDataHandler);
 export const getAllLdapConns = connectDB(getAllLdapConnsHandler);
 export const newLdapDataEntry = connectDB(newLdapDataEntryHandler);
 export const deleteLdapDataEntry = connectDB(deleteLdapDataEntryHandler);
+export const findLdapConn = connectDB(findLdapConnHandler);
+export const editLdapConn = connectDB(editLdapConnHandler);

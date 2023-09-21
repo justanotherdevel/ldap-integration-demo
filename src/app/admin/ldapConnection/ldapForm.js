@@ -1,11 +1,24 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const LDAPForm = ({ initialValues }) => {
+const LDAPForm = ({ initialValues, edit }) => {
   const [formData, setFormData] = useState(initialValues || {});
   const router = useRouter();
+  const [isEdit, setIsEdit] = useState(false);
+  useEffect(() => {
+    setFormData(initialValues || {});
+  }, [initialValues]);
 
+  useEffect(() => {
+    if (edit === null) {
+      setIsEdit(false);
+    } else {
+      setIsEdit(edit);
+    }
+  }, [edit]);
+
+  console.log("formData", formData);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -15,7 +28,17 @@ const LDAPForm = ({ initialValues }) => {
     e.preventDefault();
     console.log(formData);
     try {
-      await axios.post("/api/ldap/getConnections", { data: formData });
+      if (isEdit) {
+        await axios.put(`/api/ldap/getConnections/${formData.org}`, {
+          data: formData,
+        });
+        alert("LDAP Connection Updated");
+      } else {
+        await axios.post(`/api/ldap/getConnections`, {
+          data: formData,
+        });
+        alert("LDAP Connection Added");
+      }
       router.push("/admin");
     } catch (error) {
       alert(error);
@@ -29,14 +52,33 @@ const LDAPForm = ({ initialValues }) => {
           <label className="block text-gray-600 font-semibold mb-2">
             Organization
           </label>
-          <input
-            type="text"
-            name="org"
-            value={formData.org || ""}
-            onChange={handleChange}
-            className="border rounded w-full py-2 px-3"
-          />
+          {isEdit ? (
+            <div className="border rounded w-full py-2 px-3 bg-gray-200">
+              {formData.org}
+            </div>
+          ) : (
+            <input
+              type="text"
+              name="org"
+              value={formData.org || ""}
+              onChange={handleChange}
+              className="border rounded w-full py-2 px-3"
+            />
+          )}
         </div>
+
+        {/* <div className="mb-4"> */}
+        {/*   <label className="block text-gray-600 font-semibold mb-2"> */}
+        {/*     Organization */}
+        {/*   </label> */}
+        {/*   <input */}
+        {/*     type="text" */}
+        {/*     name="org" */}
+        {/*     value={formData.org || ""} */}
+        {/*     onChange={handleChange} */}
+        {/*     className="border rounded w-full py-2 px-3" */}
+        {/*   /> */}
+        {/* </div> */}
         <div className="mb-4">
           <label className="block text-gray-600 font-semibold mb-2">
             LDAP Host
@@ -125,13 +167,19 @@ const LDAPForm = ({ initialValues }) => {
           <label className="block text-gray-600 font-semibold mb-2">
             Password
           </label>
-          <input
-            type="text"
-            name="user_password"
-            value={formData.user_password || ""}
-            onChange={handleChange}
-            className="border rounded w-full py-2 px-3"
-          />
+          {isEdit ? (
+            <div className="border rounded w-full py-2 px-3 bg-gray-200">
+              {formData.user_password}
+            </div>
+          ) : (
+            <input
+              type="text"
+              name="user_password"
+              value={formData.user_password || ""}
+              onChange={handleChange}
+              className="border rounded w-full py-2 px-3"
+            />
+          )}
         </div>
         <div className="mb-4">
           <button

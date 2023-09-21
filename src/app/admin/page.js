@@ -31,6 +31,16 @@ const AdminPage = () => {
         </button>
       </div>
       <LdatTable ldap={ldap} />
+      <div className="text-white py-4 px-6 flex items-center">
+        <button
+          onClick={async () => {
+            router.push("/admin/ldapConnection");
+          }}
+          className="bg-green-500 mx-auto hover:bg-green-600 text-white font-medium py-2 px-4 rounded transition duration-300 ease-in-out"
+        >
+          Add New
+        </button>
+      </div>
     </>
   );
 };

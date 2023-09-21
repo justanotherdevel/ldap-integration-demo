@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export const LdatTable = ({ ldap }) => {
+  const router = useRouter();
   const handleDelete = async (org) => {
     try {
       const res = confirm("Delete " + org);
@@ -84,7 +86,12 @@ export const LdatTable = ({ ldap }) => {
                 {entry.user_password}
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                <button className="text-blue-600 hover:text-blue-800">
+                <button
+                  className="text-blue-600 hover:text-blue-800"
+                  onClick={() => {
+                    router.push(`/admin/ldapConnection/${entry.org}?edit=true`);
+                  }}
+                >
                   <FontAwesomeIcon icon={faEdit} /> Edit
                 </button>
               </td>

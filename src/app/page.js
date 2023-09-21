@@ -1,10 +1,9 @@
-import ForgotPasswordForm from "./components/forgot_password_form";
-
 export default function Home() {
   return (
     <main>
-      TEST
-      <ForgotPasswordForm />
+      <h1>Home - This page is not supposed to be used</h1>
+      {/* TEST */}
+      {/* <ForgotPasswordForm /> */}
     </main>
   );
 }
