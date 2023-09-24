@@ -45,7 +45,8 @@ const LDAPForm = ({ initialValues, edit }) => {
       }
       router.push("/admin");
     } catch (error) {
-      alert(error);
+      console.error(error.response.data);
+      alert(error.response.data);
     }
   };
 
@@ -121,24 +122,24 @@ const LDAPForm = ({ initialValues, edit }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-600 font-semibold mb-2">
-            CBIC Orgn
+            Admin DN
           </label>
           <input
             type="text"
-            name="cbic_orgn"
-            value={formData.cbic_orgn || ""}
+            name="admin_dn"
+            value={formData.admin_dn || ""}
             onChange={handleChange}
             className="border rounded w-full py-2 px-3"
           />
         </div>
         <div className="mb-4">
           <label className="block text-gray-600 font-semibold mb-2">
-            Para with UID
+            Admin Password
           </label>
           <input
             type="text"
-            name="para_with_uid"
-            value={formData.para_with_uid || ""}
+            name="admin_password"
+            value={formData.admin_password || ""}
             onChange={handleChange}
             className="border rounded w-full py-2 px-3"
           />
@@ -181,7 +182,7 @@ const LDAPForm = ({ initialValues, edit }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-600 font-semibold mb-2">
-            Password
+            User Password
           </label>
           {isEdit ? (
             <div className="border rounded w-full py-2 px-3 bg-gray-200">

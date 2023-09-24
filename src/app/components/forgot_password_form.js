@@ -11,6 +11,8 @@ const ForgotPasswordForm = ({ org }) => {
     reEnteredPassword: "",
   });
 
+  const [showOtp, setShowOtp] = useState(false);
+
   const [passwordVisibility, setPasswordVisibility] = useState({
     oldPassword: false,
     newPassword: false,
@@ -37,6 +39,7 @@ const ForgotPasswordForm = ({ org }) => {
       const res = await axios.get(
         `/api/ldap/getConnections/${org}/nonAdmin/changePassword?email=${formData.email}`
       );
+      setShowOtp(true);
       alert(res.data.msg);
     } catch (error) {
       console.log(error);
@@ -99,23 +102,25 @@ const ForgotPasswordForm = ({ org }) => {
                 placeholder="Email address"
               />
             </div>
-            <div>
-              <label htmlFor="otp" className="sr-only">
-                OTP
-              </label>
-              <div className="relative">
-                <input
-                  id="otp"
-                  name="otp"
-                  type="text"
-                  required
-                  value={formData.otp}
-                  onChange={handleChange}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="OTP"
-                />
+            {showOtp && (
+              <div>
+                <label htmlFor="otp" className="sr-only">
+                  OTP
+                </label>
+                <div className="relative">
+                  <input
+                    id="otp"
+                    name="otp"
+                    type="text"
+                    required
+                    value={formData.otp}
+                    onChange={handleChange}
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="OTP"
+                  />
+                </div>
               </div>
-            </div>
+            )}
             <div className="flex justify-center">
               <button
                 type="button"

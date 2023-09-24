@@ -1,5 +1,6 @@
 import connectDB from "@/app/middleware/mongodb";
 import LdapConn from "@/app/model/ldapConn";
+import { verifyPasswords } from "../ldapjs/ldapVerify";
 
 const getAllLdapConnsHandler = async () => {
   const ldapConns = await LdapConn.find({});
@@ -27,6 +28,17 @@ const editLdapConnHandler = async (org, ldapData) => {
 };
 
 const newLdapDataEntryHandler = async (ldapData) => {
+  const res = await verifyPasswords(
+    ldapData.ldap_host,
+    ldapData.ldap_port,
+    ldapData.admin_dn,
+    ldapData.admin_password,
+    ldapData.user_dn,
+    ldapData.user_password
+  );
+  if (!res.admin || !res.user) {
+    throw new Error("Invalid credentials");
+  }
   const ldapConn = new LdapConn(ldapData);
   await ldapConn.save();
   return ldapConn;

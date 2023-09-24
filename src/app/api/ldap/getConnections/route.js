@@ -11,6 +11,11 @@ export async function POST(req) {
     const res = await newLdapDataEntry(data);
     return new Response(JSON.stringify(res));
   } catch (error) {
+    if (error.message === "Invalid credentials") {
+      return new Response(JSON.stringify("Invalid Credentials"), {
+        status: 401,
+      });
+    }
     return new Response(JSON.stringify(error), { status: 500 });
   }
 }

@@ -22,7 +22,7 @@ export const LdatTable = ({ ldap }) => {
     }
   };
   return (
-    <div className="container mx-auto mt-4">
+    <div className="px-16 mx-auto mt-4">
       <table className="min-w-full bg-white">
         <thead>
           <tr>
@@ -39,10 +39,10 @@ export const LdatTable = ({ ldap }) => {
               User DN
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              CBIC Orgn
+              Admin DN
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Para with UID
+              Admin Password
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
               Email
@@ -51,7 +51,7 @@ export const LdatTable = ({ ldap }) => {
               Phone
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Password
+              User Password
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-300">Mobile OTP</th>
             <th className="px-6 py-3 border-b-2 border-gray-300">Edit</th>
@@ -77,10 +77,10 @@ export const LdatTable = ({ ldap }) => {
                 {entry.user_dn}
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                {entry.cbic_orgn}
+                {entry.admin_dn}
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                {entry.para_with_uid}
+                {entry.admin_password}
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                 {entry.email}

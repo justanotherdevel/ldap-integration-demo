@@ -22,6 +22,10 @@ export async function PUT(req, { params }) {
       return new Response(JSON.stringify(error.message), { status: 401 });
     } else if (error.message === "Invalid email") {
       return new Response(JSON.stringify(error.message), { status: 401 });
+    } else if (error.message === "Invalid old password") {
+      return new Response(JSON.stringify(error.message), { status: 401 });
+    } else if (error.message === "Password change failed") {
+      return new Response(JSON.stringify(error.message), { status: 500 });
     } else {
       return new Response(JSON.stringify(error), { status: 500 });
     }
@@ -68,6 +72,8 @@ export async function POST(req, { params }) {
       return new Response(JSON.stringify(error.message), { status: 401 });
     } else if (error.message === "Invalid email") {
       return new Response(JSON.stringify(error.message), { status: 401 });
+    } else if (error.message === "Password change failed") {
+      return new Response(JSON.stringify(error.message), { status: 500 });
     } else {
       return new Response(JSON.stringify(error.message), { status: 500 });
     }
