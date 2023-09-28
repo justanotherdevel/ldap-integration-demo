@@ -16,7 +16,7 @@ const AdminLoginForm = () => {
         password: password,
       });
       if (response.status === 200) {
-        router.push("/admin");
+        router.push("/admin/ldaps");
       }
     } catch (error) {
       alert(error.message);
