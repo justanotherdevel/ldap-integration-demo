@@ -78,6 +78,7 @@ const LDAPForm = ({ initialValues, edit }) => {
               value={formData.org || ""}
               onChange={handleChange}
               className="border rounded w-full py-2 px-3"
+              autoComplete="off"
               required // Make this field required
             />
           )}
@@ -91,6 +92,7 @@ const LDAPForm = ({ initialValues, edit }) => {
             name="ldap_host"
             value={formData.ldap_host || ""}
             onChange={handleChange}
+            autoComplete="off"
             className="border rounded w-full py-2 px-3"
             required // Make this field required
           />
@@ -104,6 +106,7 @@ const LDAPForm = ({ initialValues, edit }) => {
             name="ldap_port"
             value={formData.ldap_port || ""}
             onChange={handleChange}
+            autoComplete="off"
             className="border rounded w-full py-2 px-3"
             required // Make this field required
           />
@@ -117,6 +120,7 @@ const LDAPForm = ({ initialValues, edit }) => {
             name="admin_dn"
             value={formData.admin_dn || ""}
             onChange={handleChange}
+            autoComplete="off"
             className="border rounded w-full py-2 px-3"
             required // Make this field required
           />
@@ -130,6 +134,7 @@ const LDAPForm = ({ initialValues, edit }) => {
             name="admin_password"
             value={formData.admin_password || ""}
             onChange={handleChange}
+            autoComplete="off"
             className="border rounded w-full py-2 px-3"
             required // Make this field required
           />
@@ -143,6 +148,7 @@ const LDAPForm = ({ initialValues, edit }) => {
             name="base_dn"
             value={formData.base_dn || ""}
             onChange={handleChange}
+            autoComplete="off"
             className="border rounded w-full py-2 px-3"
             required // Make this field required
           />
