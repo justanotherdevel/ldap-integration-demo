@@ -62,7 +62,7 @@ export const LdatTable = ({ ldap }) => {
                 {entry.admin_dn}
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                {entry.admin_password}
+                ****
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                 {entry.base_dn}
