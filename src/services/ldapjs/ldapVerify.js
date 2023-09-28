@@ -1,5 +1,51 @@
 import ldap from "ldapjs";
 
+async function verifySinglePassword(url, port, dn, password) {
+  const ldapClient = ldap.createClient({
+    url: `ldap://${url}:${port}`, // LDAP server URL
+  });
+
+  function performBind(dn, password) {
+    return new Promise((resolve, _reject) => {
+      ldapClient.bind(dn, password, (bindErr) => {
+        if (bindErr) {
+          // Bind failed - Password is incorrect
+          resolve(false);
+        } else {
+          // Bind succeeded - Password is correct
+          resolve(true);
+        }
+      });
+    });
+  }
+
+  try {
+    // Verify admin password
+    const passwordCorrect = await performBind(dn, password);
+
+    // Close the LDAP client connection
+    ldapClient.unbind((unbindErr) => {
+      if (unbindErr) {
+        console.error("LDAP unbind error:", unbindErr);
+      } else {
+        console.log("LDAP client disconnected.");
+      }
+    });
+
+    // Return results as an object
+    return {
+      verified: passwordCorrect,
+    };
+  } catch (error) {
+    console.error("Error:", error);
+
+    // Return results with both flags set to false in case of an error
+    return {
+      verified: false,
+    };
+  }
+}
+
 async function verifyPasswords(
   url,
   port,
@@ -67,4 +113,4 @@ async function verifyPasswords(
 // // const userPassword = "test@12345";
 // const userPassword = "test@1234";
 
-export { verifyPasswords };
+export { verifyPasswords, verifySinglePassword };

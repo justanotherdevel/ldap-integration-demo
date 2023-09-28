@@ -1,8 +1,9 @@
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const ChangePasswordForm = ({ org }) => {
+const ChangePasswordForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -50,10 +51,7 @@ const ChangePasswordForm = ({ org }) => {
     };
 
     try {
-      await axios.put(
-        `/api/ldap/getConnections/${org}/nonAdmin/changePassword`,
-        form
-      );
+      await axios.put(`/api/ldap/changePassword`, form);
       alert("Password Changed Successfully");
       router.push("/thankyou");
     } catch (error) {
@@ -65,10 +63,17 @@ const ChangePasswordForm = ({ org }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
+      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+        <div className="mb-6 text-center">
+          <Image
+            src="/Railtel_Logo.png"
+            width={50}
+            height={100}
+            alt="Railtel Logo"
+            className="mx-auto h-16"
+          />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {org} - Change Password
+            Change Password
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
