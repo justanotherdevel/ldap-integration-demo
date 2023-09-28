@@ -38,6 +38,7 @@ const editLdapAdminHandler = async (org, ldapData) => {
     ldapAdmin: ldapAdmin,
     users: tmp.users,
     duplicate: tmp.duplicate,
+    error: tmp.error,
   };
   return ret;
 };
@@ -61,6 +62,7 @@ const newLdapAdminHandler = async (ldapData) => {
       ldapAdmin: ldapAdmin,
       users: tmp.users,
       duplicate: tmp.duplicate,
+      error: tmp.error,
     };
     // Add logic to add all users here or maybe call a separate api
     return ret;

@@ -37,14 +37,14 @@ const LDAPForm = ({ initialValues, edit }) => {
           data: formData,
         });
         alert(
-          `LDAP Connection Updated. Discovered ${res.data.users} new users. ${res.data.duplicate} duplicates found.`
+          `LDAP Connection Updated. Discovered ${res.data.users} new users. ${res.data.duplicate} duplicates found. ${res.data.error} errors reported`
         );
       } else {
         const res = await axios.post(`/api/ldap/getAdmins`, {
           data: formData,
         });
         alert(
-          `LDAP Connection Added. Discovered ${res.data.users} new users. ${res.data.duplicate} duplicates found.`
+          `LDAP Connection Added. Discovered ${res.data.users} new users. ${res.data.duplicate} duplicates found. ${res.data.error} errors reported`
         );
       }
       router.push("/admin/ldaps");

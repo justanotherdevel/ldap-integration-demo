@@ -12,6 +12,7 @@ export async function fetchAllUsers(org) {
     const { ldap_host, ldap_port, admin_dn, admin_password, base_dn } = admin;
     await LdapUser.deleteMany({ admin: admin });
     let duplicate = 0;
+    let error = 0;
 
     const users = await new Promise((resolve, reject) => {
       searchAccountsByMail(
@@ -36,7 +37,7 @@ export async function fetchAllUsers(org) {
         try {
           const ldapUser = new LdapUser({
             email: user.mail[0],
-            phone: user.telephoneNumber[0] || null,
+            phone: user.telephoneNumber ? user.telephoneNumber[0] : null,
             user_dn: user.dn,
             admin: admin,
           });
@@ -45,7 +46,9 @@ export async function fetchAllUsers(org) {
           if (error.code === 11000) {
             duplicate++;
           } else {
+            console.log(user);
             console.error("error in fetchAllUsers", error);
+            error++;
           }
         }
       })
@@ -53,6 +56,7 @@ export async function fetchAllUsers(org) {
     const ret = {
       users: users.length - duplicate,
       duplicate: duplicate,
+      error: error,
     };
     return ret;
   } catch (error) {
