@@ -6,7 +6,7 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     (async () => {
-      router.push("/admin/ldaps");
+      router.push("/ldaps/admin");
     })(),
       [];
   });
