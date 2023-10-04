@@ -40,7 +40,9 @@ const ForgotPasswordForm = () => {
       const res = await axios.get(
         `/api/ldap/changePassword?email=${formData.email}`
       );
-      setShowOtp(true);
+      if (res.data.msg === "OTP sent successfully") {
+        setShowOtp(true);
+      }
       alert(res.data.msg);
     } catch (error) {
       console.log(error);
