@@ -150,13 +150,21 @@ const genOtp2Handler = async (email) => {
     };
     const otpExist = await OTP.findOne({ email: email });
     if (otpExist) {
-      sendOtpEmail(email, otpExist.otp);
-      return { msg: "resent otp" };
+      const res = await sendOtpEmail(email, otpExist.otp);
+      if (res.success) {
+        return { msg: "resent otp" };
+      } else {
+        return { msg: "otp not sent" };
+      }
     }
     const otpEntry = await OTP.create(otpData);
     if (otpEntry) {
-      sendOtpEmail(email, otp);
-      return { msg: "otp sent" };
+      const res = await sendOtpEmail(email, otp);
+      if (res.success) {
+        return { msg: "resent otp" };
+      } else {
+        return { msg: "otp not sent" };
+      }
     }
     return { msg: "otp not sent" };
   } catch (error) {

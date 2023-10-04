@@ -38,6 +38,7 @@ export async function GET(req) {
   const email = url.searchParams.get("email");
   try {
     const res = await genOtp2(email);
+    console.log(res);
     return new Response(JSON.stringify(res));
   } catch (error) {
     console.log(error.message);

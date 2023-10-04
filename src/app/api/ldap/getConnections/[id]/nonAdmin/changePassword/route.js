@@ -1,6 +1,6 @@
 import {
   changeLdapPassword,
-  genOtp,
+  genOgp2,
   verifyOtpAndChangePassword,
 } from "@/services/ldap/ldap";
 
@@ -15,6 +15,7 @@ export async function PUT(req, { params }) {
       email: email,
     };
     const res = await changeLdapPassword(id, data);
+    console.log(res);
     return new Response(JSON.stringify(res));
   } catch (error) {
     console.log(error.message);
@@ -32,12 +33,11 @@ export async function PUT(req, { params }) {
   }
 }
 
-export async function GET(req, { params }) {
-  const { id } = params;
+export async function GET(req) {
   const url = new URL(req.url);
   const email = url.searchParams.get("email");
   try {
-    const res = await genOtp(id, email);
+    const res = await genOgp2(email);
     return new Response(JSON.stringify(res));
   } catch (error) {
     console.log(error.message);

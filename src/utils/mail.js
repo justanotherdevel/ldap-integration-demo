@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 // Function to send an email with OTP
 async function sendOtpEmail(email, otp) {
+  console.log(process.env.MAIL_HOST);
   console.log(email);
   const mailOptions = {
     from: process.env.MAIL_FROM,
@@ -21,6 +22,7 @@ async function sendOtpEmail(email, otp) {
   };
 
   try {
+    console.log("Sending email");
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent:", info.response);
     return { success: true };
