@@ -7,6 +7,10 @@ const transporter = nodemailer.createTransport({
   port: process.env.MAIL_PORT || 2525,
   secure: false,
   requireTLS: false,
+  tls: {
+    rejectUnauthorized: false,
+  },
+  debug: true,
   auth: {
     user: process.env.MAIL_USER || "4791b869765566",
     pass: process.env.MAIL_PASS || "8c18caef7362e1",
