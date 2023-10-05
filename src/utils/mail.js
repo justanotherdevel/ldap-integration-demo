@@ -2,6 +2,8 @@
 // Create a Nodemailer transporter
 // const nodemailer = require("nodemailer");
 
+import axios from "axios";
+
 async function sendOtpEmail(email, otp) {
   try {
     const res = axios.post("localhost:8000/send_email", {
