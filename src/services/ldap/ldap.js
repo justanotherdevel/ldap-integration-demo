@@ -1,5 +1,7 @@
 import connectDB from "@/app/middleware/mongodb";
 import LdapConn from "@/app/model/ldapConn";
+// Do not remove the next line. It's needed to ensure ldapAdmin is always loaded
+import LdapAdmin from "@/app/model/ldapAdmin";
 import OTP from "@/app/model/otp";
 import { verifyPasswords } from "../ldapjs/ldapVerify";
 import { sendOtpEmail } from "@/utils/mail";
@@ -161,7 +163,7 @@ const genOtp2Handler = async (email) => {
     if (otpEntry) {
       const res = await sendOtpEmail(email, otp);
       if (res.success) {
-        return { msg: "resent otp" };
+        return { msg: "OTP sent successfully" };
       } else {
         return { msg: "otp not sent" };
       }

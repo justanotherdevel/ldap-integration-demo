@@ -10,7 +10,6 @@ async function sendOtpEmail(email, otp) {
       send_to_email: email,
       otp: otp.toString(),
     });
-    console.log(res);
     if (res.status === 200) {
       return { success: true };
     } else {
