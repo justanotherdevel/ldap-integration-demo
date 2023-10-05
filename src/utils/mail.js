@@ -6,10 +6,11 @@ import axios from "axios";
 
 async function sendOtpEmail(email, otp) {
   try {
-    const res = axios.post("localhost:8000/send_email", {
+    const res = await axios.post("http://10.31.37.133:8000/send_email", {
       send_to_email: email,
-      otp: otp,
+      otp: otp.toString(),
     });
+    console.log(res);
     if (res.status === 200) {
       return { success: true };
     } else {
