@@ -13,6 +13,7 @@ const ForgotPasswordForm = () => {
   });
 
   const [showOtp, setShowOtp] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
 
   const [passwordVisibility, setPasswordVisibility] = useState({
     oldPassword: false,
@@ -37,9 +38,11 @@ const ForgotPasswordForm = () => {
 
   const handleSendOTP = async () => {
     try {
+      setSendingOtp(true);
       const res = await axios.get(
         `/api/ldap/changePassword?email=${formData.email}`
       );
+      setSendingOtp(false);
       if (
         res.data.msg === "OTP sent successfully" ||
         res.data.msg === "resent otp"
@@ -49,6 +52,7 @@ const ForgotPasswordForm = () => {
       alert(res.data.msg);
     } catch (error) {
       console.log(error);
+      setSendingOtp(false);
       alert(error.response.data);
     }
   };
@@ -134,10 +138,21 @@ const ForgotPasswordForm = () => {
             <div className="flex justify-center">
               <button
                 type="button"
-                onClick={handleSendOTP}
+                onClick={sendingOtp ? null : handleSendOTP}
                 className="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out"
               >
-                Send OTP
+                {sendingOtp ? (
+                  <div
+                    class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    role="status"
+                  >
+                    <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                      Loading...
+                    </span>
+                  </div>
+                ) : (
+                  "Send OTP"
+                )}
               </button>
             </div>
             <div className="h-2"></div>
