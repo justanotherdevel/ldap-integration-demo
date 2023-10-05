@@ -75,7 +75,7 @@ const ForgotPasswordForm = () => {
       router.push("/thankyou");
     } catch (error) {
       if (error.response.status === 401) {
-        alert("Invalid email or old password");
+        alert("Invalid OTP");
       }
     }
   };
