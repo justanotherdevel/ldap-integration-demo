@@ -2,9 +2,11 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import CaptchaTest from "./captcha";
 
 const ChangePasswordForm = () => {
   const router = useRouter();
+  const [CaptchMatched, setCaptchaMatched] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     oldPassword: "",
@@ -35,6 +37,10 @@ const ChangePasswordForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!CaptchMatched) {
+      alert("Please Match Captcha");
+      return;
+    }
     // Implement your password validation logic here
     const { email, oldPassword, newPassword, reEnteredPassword } = formData;
 
@@ -249,6 +255,11 @@ const ChangePasswordForm = () => {
               </div>
             </div>
           </div>
+          <CaptchaTest
+            onCaptchaMatch={() => {
+              setCaptchaMatched(true);
+            }}
+          />
 
           <div>
             <button

@@ -2,6 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import CaptchaTest from "./captcha";
 
 const ForgotPasswordForm = () => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const ForgotPasswordForm = () => {
 
   const [showOtp, setShowOtp] = useState(false);
   const [sendingOtp, setSendingOtp] = useState(false);
+  const [captchaMatch, setCaptchaMatch] = useState(false);
 
   const [passwordVisibility, setPasswordVisibility] = useState({
     oldPassword: false,
@@ -37,6 +39,10 @@ const ForgotPasswordForm = () => {
   };
 
   const handleSendOTP = async () => {
+    if (!captchaMatch) {
+      alert("Please verify captcha");
+      return;
+    }
     try {
       setSendingOtp(true);
       const res = await axios.get(
@@ -58,6 +64,10 @@ const ForgotPasswordForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!captchaMatch) {
+      alert("Please verify captcha");
+      return;
+    }
     // Implement your password validation logic here
     const { email, otp, newPassword, reEnteredPassword } = formData;
 
@@ -143,10 +153,10 @@ const ForgotPasswordForm = () => {
               >
                 {sendingOtp ? (
                   <div
-                    class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                     role="status"
                   >
-                    <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
                       Loading...
                     </span>
                   </div>
@@ -261,6 +271,7 @@ const ForgotPasswordForm = () => {
               </div>
             </div>
           </div>
+          <CaptchaTest onCaptchaMatch={() => setCaptchaMatch(true)} />
 
           <div>
             <button
